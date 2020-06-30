@@ -1,18 +1,18 @@
 # Create Google Calendar event
 
-![](extras/phone-call-dialer.jpg)
+![](extras/create-google-event.png)
 
 ## Description
 
 This field plug-in can create google calendar events for you in SurveyCTO Collect. 
 
 
-[![Download now](extras/download-button.png)](https://github.com/codimcc/create-google-event/raw/master/create-google-event.fieldplugin.zip)
+[![Download now](extras/download-button.png)](https://github.com/codimcc/create-google-event/raw/just-browser/create-google-event.fieldplugin.zip)
 
 ## How to use
 
-1. Download the sample form [extras/sample-form](https://github.com/codimcc/create-google-event/raw/master/extras/sample-form/google%20calendar%20event%20sample.xlsx) from this repo and upload it to your SurveyCTO server.
-1. Download the [create-google-event.fieldplugin.zip](https://github.com/codimcc/create-google-event/raw/master/phone-call-dialer.fieldplugin.zip) file from this repo, and attach it to the sample form on your SurveyCTO server.
+1. Download the sample form [extras/sample-form](https://github.com/codimcc/create-google-event/raw/just-browser/extras/sample-form/google%20calendar%20event%20sample.xlsx) from this repo and upload it to your SurveyCTO server.
+1. Download the [create-google-event.fieldplugin.zip](https://github.com/codimcc/create-google-event/raw/just-browser/phone-call-dialer.fieldplugin.zip) file from this repo, and attach it to the sample form on your SurveyCTO server.
 1. Make sure to provide the correct parameters (see below).
 
 ## Parameters
@@ -21,23 +21,18 @@ This field plug-in can create google calendar events for you in SurveyCTO Collec
 | --- | --- |
 | `title` | **Required**. Event title. |
 | `description` | **Optional**. The event description |
-| `startDate`| **Date part required**. DO NOT IMPLEMENTED FOR ANDROID APP;  date and time in YYYY-MM-DD HH:MM format or date in YYYY-MM-DD format if it is an all-day or multi-day event.|
-| `endDate`| **Optional**. DO NOT IMPLEMENTED FOR ANDROID APP; if not specified defaults to the same as the start date and time plus one hour if a time part is specified. If specified, must be the same as or later than the start date and time, and if the start date and time only has a date part then the end date and time must not include a time part. 
+| `startDate`| **Date part required**. Date and time in YYYY-MM-DD HH:MM format or date in YYYY-MM-DD format if it is an all-day or multi-day event.|
+| `endDate`| **Optional**. if not specified defaults to the same as the start date and time plus one hour if a time part is specified. If specified, must be the same as or later than the start date and time, and if the start date and time only has a date part then the end date and time must not include a time part. 
 | `eventTimezone`| **Optional**. By default current time zone from the Android OS or browser. |
 | `eventLocation` | **Optional**. Adding an address into the location field enables features such as "time to leave" or displaying a map with the directions. |
-| `guests`| **Optional**. Integer value [0,1]; Whether guests can view the event or not |
-| `calendarID`| **Optional**. If not specified, the default calendar is to be used.|
 | `repeatFrequency`| **Optional**. String value [daily, weekly, monthly, yearly]. If not specified then **repeatWeekDays** and **repeatWeekDays** will be ignored |
 | `repeatWeekDays`| **Optional**. String value [SO,MO,TU,WE,TH,FR,SA]
 | `repeatEnd`| **Optional**. Specify either an integer for number of occurrences or a date in YYYY-MM-DD format.|
-| `notification1`| **Optional**. DO NOT IMPLEMENTED; Minutes before event. Notification option for Android and email for web.| 
-| `notification2`| **Optional**. DO NOT IMPLEMENTED; Minutes before event. Notification option for Android and email for web.|
-
 
 ## More resources
 
 * **Sample form**  
-[extras/test-form](https://github.com/codimcc/create-google-event/raw/master/extras/sample-form/Create%20google%20event%20sample.xlsx)
+[extras/test-form](https://github.com/codimcc/create-google-event/raw/just-browser/extras/sample-form/Create%20google%20event%20sample.xlsx)
 * **Developer documentation**  
 Instructions and resources for developing your own field plug-ins.  
 [https://github.com/surveycto/Field-plug-in-resources](https://github.com/surveycto/Field-plug-in-resources)
