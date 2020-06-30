@@ -193,7 +193,7 @@ https://github.com/InteractionDesignFoundation/add-event-to-calendar-docs/blob/m
 
 function launchUsingBrowser(){
   
-  var params = 'text='+title+'&details='+description+'&location='+eventLocation+'&dates='+formatDateISO(startDate)+'/'+formatDateISO(endDate)+'&ctz'+eventTimezone+(rrule ? '&recur=RRULE:'+rrule : '')
+  var params = 'text='+title+'&details='+description+'&location='+eventLocation+'&dates='+formatDateISO(startDate)+'/'+formatDateISO(endDate)+'&ctz='+eventTimezone+(rrule ? '&recur=RRULE:'+rrule : '')
 
   var url = 'https://calendar.google.com/calendar/render?action=TEMPLATE&'+params
 
