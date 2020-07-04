@@ -3,16 +3,16 @@
 var isAndroid = (document.body.className.indexOf('android-collect') >= 0)
 var title = getPluginParameter('title');
 var description = getPluginParameter('description');
-var startDate = getPluginParameter('startDate')
-var endDate = getPluginParameter('endDate')
+var start_date = getPluginParameter('start_date')
+var end_date = getPluginParameter('end_date')
 var guests = getPluginParameter('guests')
-var eventLocation = getPluginParameter('eventLocation')
-var eventTimezone = getPluginParameter('eventTimezone')
-var eventRepeatFrequency = getPluginParameter('eventRepeatFrequency')
-var eventRepeatDays = getPluginParameter('eventRepeatDays')
-var repeatEnd = getPluginParameter('repeatEnd')
+var location = getPluginParameter('location')
+var timezone = getPluginParameter('timezone')
+var frequency = getPluginParameter('frequency')
+var repeat_days = getPluginParameter('repeat_days')
+var end = getPluginParameter('repeat_end')
 
-var startDateEpoch,endDateEpoch, rrule = ''
+var start_dateEpoch,end_dateEpoch, rrule = ''
 
 var btnCreateEvent = document.getElementById('btn-create-event')
 var statusContainer = document.getElementById('status-container')
@@ -42,7 +42,7 @@ displayParameters()
 // define what the 'Create Event' button does
 if (!fieldProperties.READONLY) {
  
-  var params = 'text='+title+'&details='+description+'&location='+eventLocation+'&dates='+formatDateISO(startDate)+'/'+formatDateISO(endDate)+'&ctz='+eventTimezone +'&add=' + guests + (rrule ? '&recur=RRULE:'+rrule : '')
+  var params = 'text='+title+'&details='+description+'&location='+location+'&dates='+formatDateISO(start_date)+'/'+formatDateISO(end_date)+'&ctz='+timezone +'&add=' + guests + (rrule ? '&recur=RRULE:'+rrule : '')
   var url = 'https://calendar.google.com/calendar/render?action=TEMPLATE&'+params
 
   btnCreateEvent.setAttribute('href', url)
@@ -61,16 +61,16 @@ function displayParameters(){
 
   document.getElementById('txt-title').innerHTML = title
   document.getElementById('txt-description').innerHTML = description
-  document.getElementById('txt-start').innerHTML = startDate
-  document.getElementById('txt-end').innerHTML = allDayEvent ? '' : endDate    
-  document.getElementById('txt-location').innerHTML = eventLocation
-  document.getElementById('txt-timezone').innerHTML = eventTimezone
+  document.getElementById('txt-start').innerHTML = start_date
+  document.getElementById('txt-end').innerHTML = allDayEvent ? '' : end_date    
+  document.getElementById('txt-location').innerHTML = location
+  document.getElementById('txt-timezone').innerHTML = timezone
   document.getElementById('txt-guests').innerHTML = guests
   
   //For clarity, no need to display "Event repeat frequency" and "Event repeat days", as only one will be effective at one time
-  document.getElementById('txt-frequency').innerHTML = eventRepeatFrequency ? eventRepeatFrequency : eventRepeatDays 
+  document.getElementById('txt-frequency').innerHTML = frequency ? frequency : repeat_days 
 
-  document.getElementById('txt-rend').innerHTML = repeatEnd
+  document.getElementById('txt-rend').innerHTML = repeat_end
   
 }
 
@@ -79,40 +79,40 @@ function validateParameters() {
   var results = ""
 
   title = title.trim()
-  startDate = startDate.trim()
-  eventRepeatFrequency = eventRepeatFrequency.trim()
-  eventRepeatDays = eventRepeatDays.trim()
-  repeatEnd = repeatEnd.trim()
+  start_date = start_date.trim()
+  frequency = frequency.trim()
+  repeat_days = repeat_days.trim()
+  repeat_end = repeat_end.trim()
 
   try {
 
-    if (title === '' && startDate !== '') errorMessages.push("Event Title is required to create an event")
-    if (title !== '' & startDate === '') errorMessages.push("Event Start date is required to create an event")
-    if (title === '' && startDate === '') errorMessages.push("Required parameters are missing. Both the title and a start date are required to create an event")
+    if (title === '' && start_date !== '') errorMessages.push("Event Title is required to create an event")
+    if (title !== '' & start_date === '') errorMessages.push("Event Start date is required to create an event")
+    if (title === '' && start_date === '') errorMessages.push("Required parameters are missing. Both the title and a start date are required to create an event")
 
-    validateStartEndDates()
+    validateStartend_dates()
 
     validateListOfGuests()
 
     //set default tz if not provided
-    if (!eventTimezone) eventTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (!timezone) timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     validateRepeatFrequency()
 
-    validateEventRepeatDays()
+    validaterepeat_days()
 
-    //if eventRepeatFrequency submitted then translate eventRepeatFrequency, repeatEnd, eventRepeatDays to rrule
-    if (eventRepeatFrequency) {
-      if (eventRepeatFrequency.toLowerCase() === "daily") {
+    //if frequency submitted then translate frequency, repeat_end, repeat_days to rule
+    if (frequency) {
+      if (frequency.toLowerCase() === "daily") {
         rrule = "FREQ=DAILY";
       }
-      if (eventRepeatFrequency.toLowerCase() === "weekly") {
+      if (frequency.toLowerCase() === "weekly") {
         rrule = "FREQ=WEEKLY";
       }
-      if (eventRepeatFrequency.toLowerCase() === "monthly") {
+      if (frequency.toLowerCase() === "monthly") {
         rrule = "FREQ=MONTHLY";
       }
-      if (eventRepeatFrequency.toLowerCase() === "yearly") {
+      if (frequency.toLowerCase() === "yearly") {
         rrule = "FREQ=YEARLY";
       }
 
@@ -123,29 +123,29 @@ function validateParameters() {
       /*
         For clarity, no need to display "Event repeat frequency" and "Event repeat days", as only one will be effective at one time
       */
-      //eventRepeatDays = "Overridden by event repeat frequency"
-      eventRepeatDays = ""
+      //repeat_days = "Overridden by event repeat frequency"
+      repeat_days = ""
 
     }
     /*
     When "Event repeat days" is specified and "Event repeat frequency" is blank, it should be interpreted as "repeating every week on the specified days".  
     "Event repeat days" should not be contingent on a value being specified for "Event repeat frequency"
     */
-    else if (eventRepeatFrequency === '' && eventRepeatDays !==''){
+    else if (frequency === '' && repeat_days !==''){
 
       rrule = "FREQ=WEEKLY";
 
-      var eventRepeatDaysMapped = mapWeekDays(eventRepeatDays)
-      eventRepeatDaysMapped = eventRepeatDaysMapped.replace(/\s/g,',')
+      var repeat_daysMapped = mapWeekDays(repeat_days)
+      repeat_daysMapped = repeat_daysMapped.replace(/\s/g,',')
 
 
-      rrule += ";BYDAY=" + eventRepeatDaysMapped
+      rrule += ";BYDAY=" + repeat_daysMapped
 
     }
 
       //You can use either COUNT or UNTIL to specify the end of the event recurrence. Don't use both in the same rule.
-      if ((eventRepeatFrequency !=='' || eventRepeatDays !== '') && repeatEnd !== '') {
-        const parsed = Number(repeatEnd);
+      if ((frequency !=='' || repeat_days !== '') && repeat_end !== '') {
+        const parsed = Number(repeat_end);
         //if parsed then use as COUNT
         if (!isNaN(parsed)) {
           rrule += ";COUNT=" + parsed;
@@ -153,10 +153,10 @@ function validateParameters() {
           //otherwise use as UNTIL date
         } else {
 
-          if (!isValidDate(repeatEnd)){
+          if (!isValidDate(repeat_end)){
             errorMessages.push("Repeat end date is invalid")
           }else{
-          rrule += ";UNTIL=" + formatDate(repeatEnd);
+          rrule += ";UNTIL=" + formatDate(repeat_end);
           }
         }
       }
@@ -179,18 +179,18 @@ return str
 
 }
 
-function validateStartEndDates() {
+function validateStartend_dates() {
 
-  var sd = new Date(startDate);
-  var ed = new Date(endDate);
+  var sd = new Date(start_date);
+  var ed = new Date(end_date);
 
   //Start date & time (date part required): date and time in “YYYY-MM-DD HH:MM” format or date in “YYYY-MM-DD” format if it is an all-day or multi-day event.
-  if (startDate && !isValidDate(startDate)) {
+  if (start_date && !isValidDate(start_date)) {
 
     errorMessages.push("Provided start date value is invalid")
 
   } 
-  else if(isValidDate(startDate) && !isValidDate(endDate)) {
+  else if(isValidDate(start_date) && !isValidDate(end_date)) {
     //if not specified defaults to the same as the start date
     //if the start date and time only has a date part then the end date and time must not include a time part.
     if (sd.getUTCHours() === 0 && sd.getUTCMinutes() === 0) {
@@ -198,7 +198,7 @@ function validateStartEndDates() {
       allDayEvent = true
       ed = sd;
       ed = ed.setTime(ed.getTime() + 86400000); //add 24h
-      endDate = formatDate(ed,'YYYY-MM-DD');
+      end_date = formatDate(ed,'YYYY-MM-DD');
 
     }
 
@@ -206,11 +206,11 @@ function validateStartEndDates() {
     if (sd.getUTCHours() !== 0 || sd.getUTCMinutes() !== 0) {
       ed = sd;
       ed = ed.setTime(ed.getTime() + 60 * 60 * 1000);
-      endDate = formatDate(ed,'YYYY-MM-DD HH:MM');
+      end_date = formatDate(ed,'YYYY-MM-DD HH:MM');
     }
   } 
   
-  if (isValidDate(startDate) && isValidDate(endDate))
+  if (isValidDate(start_date) && isValidDate(end_date))
   {
     //If specified, must be the same as or later than the start date and time, and
     if (ed < sd) {
@@ -245,22 +245,22 @@ function validateListOfGuests() {
 
 function validateRepeatFrequency(){
 
-  if (eventRepeatFrequency.trim() === '') return
+  if (frequency.trim() === '') return
 
   var freq = ['daily','weekly','monthly', 'yearly']
 
-  if (!freq.includes(eventRepeatFrequency.toLowerCase())){
-    errorMessages.push("Invalid event repeat frequency value: " + eventRepeatFrequency)
+  if (!freq.includes(frequency.toLowerCase())){
+    errorMessages.push("Invalid event repeat frequency value: " + frequency)
   }
 
 
 }
-function validateEventRepeatDays(){
+function validaterepeat_days(){
 
-  if (eventRepeatDays.trim() === '') return
+  if (repeat_days.trim() === '') return
 
   var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
-  var s = eventRepeatDays.split(" ");
+  var s = repeat_days.split(" ");
   var errors = []
 
   for (var i = 0; i < s.length; i++) {
@@ -279,7 +279,7 @@ function validateEventRepeatDays(){
 // Define how to store the response
 function saveResponse (result) {
 
-  var params = [title,description,startDate,endDate,eventLocation,guests,eventTimezone,eventRepeatFrequency,repeatEnd,eventRepeatDays].join(';')
+  var params = [title,description,start_date,end_date,location,guests,timezone,frequency,repeat_end,repeat_days].join(';')
   
   if (result === 'success') {
     var successResponse = '[' + new Date().toLocaleString() + '] The following parameters were used: ' + params + '.\n'
@@ -300,7 +300,7 @@ https://github.com/InteractionDesignFoundation/add-event-to-calendar-docs/blob/m
 
 function launchUsingBrowser(){
   
-  var params = 'text='+title+'&details='+description+'&location='+eventLocation+'&dates='+formatDateISO(startDate)+'/'+formatDateISO(endDate)+'&ctz='+eventTimezone +'&add=' + guests + (rrule ? '&recur=RRULE:'+rrule : '')
+  var params = 'text='+title+'&details='+description+'&location='+location+'&dates='+formatDateISO(start_date)+'/'+formatDateISO(end_date)+'&ctz='+timezone +'&add=' + guests + (rrule ? '&recur=RRULE:'+rrule : '')
 
   var url = 'https://calendar.google.com/calendar/render?action=TEMPLATE&'+params
 
