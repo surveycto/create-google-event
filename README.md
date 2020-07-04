@@ -23,10 +23,11 @@ This field plug-in can create google calendar events for you in SurveyCTO Collec
 | `description` | **Optional**. The event description |
 | `startDate`| **Date part required**. Date and time in YYYY-MM-DD HH:MM format or date in YYYY-MM-DD format if it is an all-day or multi-day event.|
 | `endDate`| **Optional**. if not specified defaults to the same as the start date and time plus one hour if a time part is specified. If specified, must be the same as or later than the start date and time, and if the start date and time only has a date part then the end date and time must not include a time part. 
+| `guests`| **Optional**. A commas-separated list of valid email addresses to invite to the event. |
 | `eventTimezone`| **Optional**. By default current time zone from the Android OS or browser. |
 | `eventLocation` | **Optional**. Adding an address into the location field enables features such as "time to leave" or displaying a map with the directions. |
-| `repeatFrequency`| **Optional**. String value [daily, weekly, monthly, yearly]. If not specified then **repeatWeekDays** and **repeatWeekDays** will be ignored |
-| `repeatWeekDays`| **Optional**. String value [SO,MO,TU,WE,TH,FR,SA]
+| `eventRepeatFrequency`| **Optional**. String value [daily, weekly, monthly, yearly]. If not specified then **repeatWeekDays** and **repeatWeekDays** will be ignored |
+| `eventRepeatDays`| **Optional**. [Sun Mon Tue Wed Thu Fri Sat] specified in a space-separated list.
 | `repeatEnd`| **Optional**. Specify either an integer for number of occurrences or a date in YYYY-MM-DD format.|
 
 ## More resources
