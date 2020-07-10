@@ -1,11 +1,12 @@
 
+
 # Create Google Calendar event
 
 ![](extras/create-google-event.png)
 
 ## Description
 
-This field plug-in can create Google Calendar events in SurveyCTO Collect. Supply at least the basic, required parameters, `title` and `start_date` to generate an event. This works offline on SurveyCTO Collect on Android.
+This field plug-in can create Google Calendar events in SurveyCTO Collect. Supply at least the basic required parameters, `title` and `start_date` to generate an event. This works offline on SurveyCTO Collect on Android.
 
 This field plug-in works on Android and in web forms, but not yet on iOS.
 
@@ -26,7 +27,7 @@ The date and time in the square brackets at the start is a timestamp for pressin
 
 ## How to use
 
-1. Download the sample form [extras/sample-form](https://github.com/SurveyCTO/create-google-event/raw/just-browser/extras/sample-form/google%20calendar%20event%20sample.xlsx) from this repo and upload it to your SurveyCTO server.
+1. Download either the [basic sample form](https://github.com/surveycto/create-google-event/blob/master/extras/sample-form/Sample%20form%20-%20Create%20Google%20Calendar%20event%20field%20plug-in%20(basic).xlsx) or the [advanced sample form](https://github.com/surveycto/create-google-event/blob/master/extras/sample-form/Sample%20form%20-%20Create%20Google%20Calendar%20event%20field%20plug-in%20(advanced).xlsx) from this repo and upload it to your SurveyCTO server.
 1. Download the [create-google-event.fieldplugin.zip](https://github.com/SurveyCTO/create-google-event/raw/just-browser/phone-call-dialer.fieldplugin.zip) file from this repo, and attach it to the sample form on your SurveyCTO server.
 1. Make sure to provide the correct parameters (see below).
 
@@ -41,14 +42,17 @@ The date and time in the square brackets at the start is a timestamp for pressin
 | `location` (optional)| Adding a valid address into the location field enables features such as "time to leave" or displaying a map with the directions. |
 | `guests` (optional)| A commas-separated list of valid email addresses to invite to the event. |
 | `timezone` (optional)| By default current timezone from the Android OS or browser. Alternatively, use the TZ database name values from [this article](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) |
-| `frequency` (optional)| String value [daily, weekly, monthly, yearly]. Will override `repeat_days`. |
-| `repeat_days` (optional)| [Sun Mon Tue Wed Thu Fri Sat] specified in a space-separated list (like what is stored by a *select_multiple* field). Do not use with `frequency`. |
-| `repeat_end` (optional)| Specify either an integer for number of occurrences, or an end date for repeats in YYYY-MM-DD format. Applies to `frequency` and `repeat_days`.|
+| `repeat_freq` (optional)| String value [daily, weekly, monthly, yearly]. Will override `repeat_days`. |
+| `repeat_days` (optional)| [Sun Mon Tue Wed Thu Fri Sat] specified in a space-separated list (like what is stored by a *select_multiple* field). Do not use with `repeat_freq`. |
+| `repeat_end` (optional)| Specify either an integer for number of occurrences, or an end date for repeats in YYYY-MM-DD format. Applies to `repeat_freq` and `repeat_days`.|
 
 ## More resources
 
-* **Sample form**  
-[extras/test-form](https://github.com/SurveyCTO/create-google-event/raw/just-browser/extras/sample-form/Create%20google%20event%20sample.xlsx)
+* **Basic sample form**  
+[extras/sample-form/basic](https://github.com/SurveyCTO/create-google-event/raw/just-browser/extras/sample-form/Create%20google%20event%20sample.xlsx)
+* **Advanced sample form**  
+[extras/sample-form/advanced](https://github.com/surveycto/create-google-event/blob/master/extras/sample-form/Sample%20form%20-%20Create%20Google%20Calendar%20event%20field%20plug-in%20(advanced).xlsx)
+
 * **Developer documentation**  
 Instructions and resources for developing your own field plug-ins.  
 [https://github.com/surveycto/Field-plug-in-resources](https://github.com/surveycto/Field-plug-in-resources)

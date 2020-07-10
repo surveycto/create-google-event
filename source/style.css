@@ -6,7 +6,10 @@
 }
 .center {
 	justify-content: center;
-	text-align: center;
+}
+
+.centerIcon {
+    text-align: center; 
 }
 
 .btn {
