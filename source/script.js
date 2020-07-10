@@ -33,7 +33,7 @@ if (errorMessages.length > 0){
 }else{
 
   document.getElementById('btn-create-event').style.display = "";
-  statusContainer.innerHTML = 'Click on the calendar icon to create the event';
+  statusContainer.innerHTML = 'Press to create event:';
 
 }
 
