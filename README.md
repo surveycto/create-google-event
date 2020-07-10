@@ -27,7 +27,7 @@ The date and time in the square brackets at the start is a timestamp for pressin
 
 ## How to use
 
-1. Download either the [basic sample form](https://github.com/surveycto/create-google-event/blob/master/extras/sample-form/Sample%20form%20-%20Create%20Google%20Calendar%20event%20field%20plug-in%20(basic).xlsx) or the [advanced sample form](https://github.com/surveycto/create-google-event/blob/master/extras/sample-form/Sample%20form%20-%20Create%20Google%20Calendar%20event%20field%20plug-in%20(advanced).xlsx) from this repo and upload it to your SurveyCTO server.
+1. Download either the [basic sample form](https://github.com/surveycto/create-google-event/raw/master/extras/sample-form/Sample%20form%20-%20Create%20Google%20Calendar%20event%20field%20plug-in%20(basic).xlsx) or the [advanced sample form](https://github.com/surveycto/create-google-event/raw/master/extras/sample-form/Sample%20form%20-%20Create%20Google%20Calendar%20event%20field%20plug-in%20(advanced).xlsx) from this repo and upload it to your SurveyCTO server.
 1. Download the [create-google-event.fieldplugin.zip](https://github.com/SurveyCTO/create-google-event/raw/just-browser/phone-call-dialer.fieldplugin.zip) file from this repo, and attach it to the sample form on your SurveyCTO server.
 1. Make sure to provide the correct parameters (see below).
 
@@ -49,9 +49,9 @@ The date and time in the square brackets at the start is a timestamp for pressin
 ## More resources
 
 * **Basic sample form**  
-[extras/sample-form/basic](https://github.com/SurveyCTO/create-google-event/raw/just-browser/extras/sample-form/Create%20google%20event%20sample.xlsx)
+[extras/sample-form/basic](https://github.com/surveycto/create-google-event/raw/master/extras/sample-form/Sample%20form%20-%20Create%20Google%20Calendar%20event%20field%20plug-in%20(basic).xlsx)
 * **Advanced sample form**  
-[extras/sample-form/advanced](https://github.com/surveycto/create-google-event/blob/master/extras/sample-form/Sample%20form%20-%20Create%20Google%20Calendar%20event%20field%20plug-in%20(advanced).xlsx)
+[extras/sample-form/advanced](https://github.com/surveycto/create-google-event/raw/master/extras/sample-form/Sample%20form%20-%20Create%20Google%20Calendar%20event%20field%20plug-in%20(advanced).xlsx)
 
 * **Developer documentation**  
 Instructions and resources for developing your own field plug-ins.  
