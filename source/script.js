@@ -1,6 +1,5 @@
-/* global getPluginParameter, fieldProperties, launchIntent, setAnswer */
+/* global getPluginParameter, fieldProperties, setAnswer */
 
-var isAndroid = (document.body.className.indexOf('android-collect') >= 0)
 var title = getPluginParameter('title')
 var description = getPluginParameter('description')
 var startDate = getPluginParameter('start_date')
@@ -12,7 +11,6 @@ var eventRepeatFrequency = getPluginParameter('repeat_freq')
 var eventRepeatDays = getPluginParameter('repeat_days')
 var repeatEnd = getPluginParameter('repeat_end')
 
-var startDateEpoch, endDateEpoch
 var rrule = ''
 
 var btnCreateEvent = document.getElementById('btn-create-event')
@@ -65,8 +63,6 @@ function displayParameters () {
 }
 
 function validateParameters () {
-  var results = ''
-
   title = title.trim()
   startDate = startDate.trim()
   eventRepeatFrequency = eventRepeatFrequency.trim()
@@ -113,12 +109,11 @@ function validateParameters () {
       */
       // eventRepeatDays = "Overridden by event repeat frequency"
       eventRepeatDays = ''
-    }
-    /*
-    When "Event repeat days" is specified and "Event repeat frequency" is blank, it should be interpreted as "repeating every week on the specified days".
-    "Event repeat days" should not be contingent on a value being specified for "Event repeat frequency"
-    */
-    else if (eventRepeatFrequency === '' && eventRepeatDays !== '') {
+    } else if (eventRepeatFrequency === '' && eventRepeatDays !== '') {
+      /*
+      When "Event repeat days" is specified and "Event repeat frequency" is blank, it should be interpreted as "repeating every week on the specified days".
+      "Event repeat days" should not be contingent on a value being specified for "Event repeat frequency"
+      */
       rrule = 'FREQ=WEEKLY'
 
       var eventRepeatDaysMapped = mapWeekDays(eventRepeatDays)
@@ -163,8 +158,7 @@ function validateStartEndDates () {
   // Start date & time (date part required): date and time in “YYYY-MM-DD HH:MM” format or date in “YYYY-MM-DD” format if it is an all-day or multi-day event.
   if (startDate && !isValidDate(startDate)) {
     errorMessages.push('Provided start date value is invalid')
-  }
-  else if (isValidDate(startDate) && !isValidDate(endDate)) {
+  } else if (isValidDate(startDate) && !isValidDate(endDate)) {
     // if not specified defaults to the same as the start date
     // if the start date and time only has a date part then the end date and time must not include a time part.
     if (sd.getUTCHours() === 0 && sd.getUTCMinutes() === 0) {
@@ -256,7 +250,8 @@ a list of all known parameters
 https:// github.com/InteractionDesignFoundation/add-event-to-calendar-docs/blob/master/services/google.md
 */
 
-function launchUsingBrowser () {
+// The below function is note used, so it is being commented-out for now.
+/* function launchUsingBrowser () {
   var params = 'text=' + title + '&details=' + description + '&location=' + eventLocation + '&dates=' + formatDateISO(startDate) + '/' + formatDateISO(endDate) + '&ctz=' + eventTimezone + '&add=' + guests + (rrule ? '&recur=RRULE:' + rrule : '')
 
   var url = 'https:// calendar.google.com/calendar/render?action=TEMPLATE&' + params
@@ -264,7 +259,7 @@ function launchUsingBrowser () {
   window.open(url)
 
   saveResponse('success')
-}
+} */
 
 function isValidDate (d) {
   var f1 = /[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]/
@@ -287,11 +282,11 @@ function isValidDate (d) {
 }
 
 function formatDate (date, f = 'YYYYMMDD') {
-  var year = '',
-    month = '',
-    day = '',
-    hh = '',
-    mm = ''
+  var year = ''
+  var month = ''
+  var day = ''
+  var hh = ''
+  var mm = ''
   var result = ''
 
   try {
