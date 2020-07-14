@@ -37,7 +37,7 @@ displayParameters()
 // define what the 'Create Event' button does
 if (!fieldProperties.READONLY) {
   var params = 'text=' + title + '&details=' + description + '&location=' + eventLocation + '&dates=' + formatDateISO(startDate) + '/' + formatDateISO(endDate) + '&ctz=' + eventTimezone + '&add=' + guests + (rrule ? '&recur=RRULE:' + rrule : '')
-  var url = 'https:// calendar.google.com/calendar/render?action=TEMPLATE&' + params
+  var url = 'https://calendar.google.com/calendar/render?action=TEMPLATE&' + params
 
   btnCreateEvent.setAttribute('href', url)
   btnCreateEvent.onclick = function () {
