@@ -65,7 +65,7 @@ function displayParameters () {
 function validateParameters () {
   title = title.trim()
   startDate = startDate.trim()
-  eventRepeatFrequency = eventRepeatFrequency.trim()
+  eventRepeatFrequency = eventRepeatFrequency ? eventRepeatFrequency.trim() : undefined
   eventRepeatDays = eventRepeatDays.trim()
   repeatEnd = repeatEnd.trim()
 
