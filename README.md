@@ -8,6 +8,9 @@ This field plug-in creates a Google Calendar events using data entered into Surv
 
 Only the `title` parameter is required, with the others being optional, but it is recommended that you also supply the `start_date` parameter when generating an event. This also works offline in SurveyCTO Collect on Android.
 
+When using this field plug-in in web forms, keep in mind that the date selected will be converted to UTC time (to learn more, check out our support article on [constraining time fields in form designs
+](https://support.surveycto.com/hc/en-us/articles/360045912114-Constraining-time-fields-in-form-designs)). Because of this, when using this field plug-in in web forms, select the "Greenwich" time zone. That way, when the Google Calendar app is opened, it will be converted back to the local time zone.
+
 **Note:** Support for iOS is pending in the current field plug-in version.
 
 [![Download now](extras/download-button.png)](https://github.com/SurveyCTO/create-google-event/raw/just-browser/create-google-event.fieldplugin.zip)
