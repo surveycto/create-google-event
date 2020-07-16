@@ -19,12 +19,40 @@ if (description == null) {
   description = ''
 }
 
-if (startDate == null) {
-  startDate = ''
+var nextHalfHour // Declared up here, since might be used by endDate
+if (startDate == null) { // If not defined, then default to the next half-hour
+  var now = Date.now()
+  var date = new Date(now)
+  var ms = date.getMilliseconds()
+  var second = date.getSeconds()
+  var minute = date.getMinutes()
+  var stringMinute
+
+  if (minute > 30) {
+    minute -= 30
+    stringMinute = '00'
+  } else {
+    stringMinute = '30'
+  }
+
+  var timeSubtract = ms + (second * 1000) + (minute * 60000)
+  nextHalfHour = now - timeSubtract + 1800000
+  var scheduleTime = new Date(nextHalfHour)
+
+  // YYYY-MM-DD HH:MM
+  startDate = String(scheduleTime.getFullYear()) + '-' + pad(scheduleTime.getMonth()) + '-' + pad(scheduleTime.getDate()) + ' ' + pad(scheduleTime.getHours()) + ':' + stringMinute
 }
 
 if (endDate == null) {
-  endDate = ''
+  var endFull
+  if (nextHalfHour == null) {
+    endFull = new Date(startDate.substring(0, 4) + '-' + startDate.substring(4, 6) + '-' + startDate.substring(6, 8) + startDate.substring(8, 11) + ':' + startDate.substring(11, 13) + ':00')
+  } else {
+    var endHalfHour = nextHalfHour + 3600000
+    endFull = new Date(endHalfHour)
+  }
+
+  endDate = String(endFull.getFullYear()) + '-' + pad(endFull.getMonth()) + '-' + pad(endFull.getDate()) + ' ' + pad(endFull.getHours()) + ':' + pad(endFull.getMinutes())
 }
 
 if (guests == null) {
