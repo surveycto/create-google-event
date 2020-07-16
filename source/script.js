@@ -137,13 +137,17 @@ function displayParameters () {
 }
 
 function validateParameters () {
-  title = title.trim()
-  startDate = startDate.trim()
-  eventRepeatFrequency = eventRepeatFrequency.trim()
-  eventRepeatDays = eventRepeatDays.trim()
-  repeatEnd = repeatEnd.trim()
-
   try {
+    title = title.trim()
+    startDate = startDate.trim()
+    eventRepeatFrequency = eventRepeatFrequency.trim()
+    eventRepeatDays = eventRepeatDays.trim()
+
+    if (typeof repeatEnd !== 'string') {
+      repeatEnd = String(repeatEnd)
+    }
+    repeatEnd = repeatEnd.trim()
+
     if (title === '' && startDate !== '') errorMessages.push('Event Title is required to create an event')
     if (title !== '' & startDate === '') errorMessages.push('Event Start date is required to create an event')
     if (title === '' && startDate === '') errorMessages.push('Required parameters are missing. Both the title and a start date are required to create an event')
