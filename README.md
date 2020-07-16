@@ -6,7 +6,7 @@
 
 This field plug-in creates a Google Calendar events using data entered into SurveyCTO Collect. Use this field plug-in to create calendar events for interview follow-up appointments and other work that needs to be scheduled as part of your data collection.
 
-All parameters are optional, but is is recommended that you at least supply the `title` and `start_date` parameters when generating an event. This also works offline in SurveyCTO Collect on Android.
+All parameters are optional, but it is recommended that you at least supply the `title` and `start_date` parameters when generating an event. This also works offline in SurveyCTO Collect on Android.
 
 **Note:** Support for iOS is pending in the current field plug-in version.
 
