@@ -11,6 +11,46 @@ var eventRepeatFrequency = getPluginParameter('repeat_freq')
 var eventRepeatDays = getPluginParameter('repeat_days')
 var repeatEnd = getPluginParameter('repeat_end')
 
+if (title == null) {
+  title = ''
+}
+
+if (description == null) {
+  description = ''
+}
+
+if (startDate == null) {
+  startDate = ''
+}
+
+if (endDate == null) {
+  endDate = ''
+}
+
+if (guests == null) {
+  guests = ''
+}
+
+if (eventLocation == null) {
+  eventLocation = ''
+}
+
+if (eventTimezone == null) {
+  eventTimezone = ''
+}
+
+if (eventRepeatFrequency == null) {
+  eventRepeatFrequency = ''
+}
+
+if (eventRepeatDays == null) {
+  eventRepeatDays = ''
+}
+
+if (repeatEnd == null) {
+  repeatEnd = ''
+}
+
 var rrule = ''
 
 var btnCreateEvent = document.getElementById('btn-create-event')
@@ -65,7 +105,7 @@ function displayParameters () {
 function validateParameters () {
   title = title.trim()
   startDate = startDate.trim()
-  eventRepeatFrequency = eventRepeatFrequency ? eventRepeatFrequency.trim() : undefined
+  eventRepeatFrequency = eventRepeatFrequency.trim()
   eventRepeatDays = eventRepeatDays.trim()
   repeatEnd = repeatEnd.trim()
 
