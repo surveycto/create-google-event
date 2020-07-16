@@ -344,6 +344,7 @@ function formatDate (date, f = 'YYYYMMDD') {
 
   try {
     var d = new Date(date)
+    d = new Date(d.getTime() + (d.getTimezoneOffset() * 60000)) // Takes into account time zone offset
 
     year = d.getFullYear()
     month = pad(d.getMonth() + 1)
@@ -353,13 +354,9 @@ function formatDate (date, f = 'YYYYMMDD') {
 
     if (f === 'YYYYMMDD') {
       result = [year, month, day].join('')
-    }
-
-    if (f === 'YYYY-MM-DD') {
+    } else if (f === 'YYYY-MM-DD') {
       result = [year, month, day].join('-')
-    }
-
-    if (f === 'YYYY-MM-DD HH:MM') {
+    } else if (f === 'YYYY-MM-DD HH:MM') {
       result = [year, month, day].join('-') + ' ' + [hh, mm].join(':')
     }
   } catch (err) {
