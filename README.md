@@ -1,24 +1,37 @@
-
-
-
 # Create Google Calendar event
 
-![](extras/create-google-event.png)
+![](extras/readme-images/create-google-event.png)
 
 ## Description
 
-This field plug-in creates Google Calendar events using data entered into SurveyCTO Collect. Use this field plug-in to create calendar events for interview follow-up appointments and other work that needs to be scheduled as part of your data collection.
+This field plug-in creates a Google Calendar events using data entered into SurveyCTO Collect. Use this field plug-in to create calendar events for interview follow-up appointments and other work that needs to be scheduled as part of your data collection.
 
-Supply at least the basic required parameters, `title` and `start_date` to generate an event. This works offline on SurveyCTO Collect on Android.
+Only the `title` parameter is required, with the others being optional, but it is recommended that you also supply the `start_date` parameter when generating an event. This also works offline in SurveyCTO Collect on Android.
+
+When using this field plug-in in web forms, keep in mind that the date selected will be converted to UTC time (to learn more, check out our support article on [constraining time fields in form designs
+](https://support.surveycto.com/hc/en-us/articles/360045912114-Constraining-time-fields-in-form-designs)). Because of this, when using this field plug-in in web forms, select the "Greenwich" time zone. That way, when the Google Calendar app is opened, it will be converted back to the local time zone.
 
 **Note:** Support for iOS is pending in the current field plug-in version.
 
+![Beta](extras/readme-images/beta-release-download.jpg)
 
-[![Download now](extras/download-button.png)](https://github.com/SurveyCTO/create-google-event/raw/just-browser/create-google-event.fieldplugin.zip)
+*This plug-in is currently under beta. If you you find a problem with the field plug-in, please email max@surveycto.com.*
 
-## Features
+[![Download now](extras/readme-images/download-button.png)](https://github.com/SurveyCTO/create-google-event/raw/just-browser/create-google-event.fieldplugin.zip)
 
-Supports the `text` field type, but doesn't provide an actual text input.
+## Default SurveyCTO feature support
+
+| Feature / Property | Support |
+| --- | --- |
+| Supported field type(s) | `text`|
+| Default values | No |
+| Read only | No |
+| media:image | No |
+| media:audio | No |
+| media:video | No |
+| `numbers` appearance | No |
+| `numbers-decimal` appearance | No |
+| `numbers-phone` appearance | No |
 
 ## How the response is stored
 
@@ -26,7 +39,7 @@ Depending on the parameters that were supplied, a response like the following wi
 
 > [2020/07/04, 15:38:45] The following parameters were used: My birthday;Barbecue with friends and family. ;2020-09-01 17:00;2020-09-01 21:00;12 Country Lane;;Africa/Johannesburg;;;.
 
-The date and time in the square brackets at the start is a timestamp for pressing the event creation button, and does not confirm that the event was actually created.
+The date and time in the square brackets at the start is a timestamp when the event creation button was pressed, and does not confirm that the event was actually created.
 
 ## How to use
 
@@ -35,21 +48,22 @@ The date and time in the square brackets at the start is a timestamp for pressin
 3. Make sure to provide the correct parameters (see below).
 4. In a form, press the Google Calendar icon button to generate an event. 
 5. In SurveyCTO Collect, pick the Google Calendar app if prompted to complete the action to create an event offline.
+6. Save the Google Calendar event, then return to Collect.
 
 ## Parameters
 
 | Key | Value |
 | --- | --- |
-| `title` (required)| Event title. |
-| `start_date` (required)| Date and time in YYYY-MM-DD HH:MM format or date in YYYY-MM-DD format if it is an all-day or multi-day event. Use the [`format-date-time()` SurveyCTO function]([https://docs.surveycto.com/02-designing-forms/01-core-concepts/09.expressions.html#format-date-time](https://docs.surveycto.com/02-designing-forms/01-core-concepts/09.expressions.html#format-date-time)) to format correctly.|
-| `end_date` (optional)| If not specified defaults to the same as the start date and time plus one hour if a time part is specified. If specified, must be the same as or later than the start date and time. If the `start_date` has no time value, then `end_date` must also have no time value. |
-| `description` (optional)| The event description. |
-| `location` (optional)| Adding a valid address into the location field enables features such as "time to leave" or displaying a map with directions. |
-| `guests` (optional)| A commas-separated list of valid email addresses to invite to the event. |
-| `timezone` (optional)| Set to current timezone from the device or browser by default. Alternatively, use the TZ database name values from [this article](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) |
-| `repeat_freq` (optional)| String value [daily, weekly, monthly, yearly]. Will override `repeat_days`. |
-| `repeat_days` (optional)| [Sun Mon Tue Wed Thu Fri Sat] specified in a space-separated list (like what is stored by a *select_multiple* field). Do not use simultaneously with `repeat_freq`. |
-| `repeat_end` (optional)| Specify either an integer for number of occurrences, or an end date for repeats in YYYY-MM-DD format. Applies to `repeat_freq` and `repeat_days`.|
+| `title`| Event title. |
+| `start_date`| Date and time in YYYY-MM-DD HH:MM format, or date in YYYY-MM-DD format if it is an all-day or multi-day event. Use the [`format-date-time()` SurveyCTO function]([https://docs.surveycto.com/02-designing-forms/01-core-concepts/09.expressions.html#format-date-time](https://docs.surveycto.com/02-designing-forms/01-core-concepts/09.expressions.html#format-date-time)) to format correctly. If not specified, then the time will be the next half-hour (e.g. if the event is created at 4:14 PM, then the default time will be 4:30 PM).|
+| `end_date`| If not specified, defaults to one hour after the `start_date`. If specified, must be the same as or later than the start date and time. If the `start_date` has no time value, then `end_date` must also have no time value. |
+| `description`| The event description. |
+| `location`| Adding a valid address into the location field enables features such as "time to leave" or displaying a map with directions. |
+| `guests`| A commas-separated list of valid email addresses to invite to the event. |
+| `timezone`| Set to current timezone from the device or browser by default. Alternatively, use the TZ database name values from [this article](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) |
+| `repeat_freq`| String value ['daily', 'weekly', 'monthly', or 'yearly']. Will override `repeat_days`. |
+| `repeat_days`| A space-separated list of days the event should repeat on. Can use values 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', or 'Sat' (e.g. `'Mon Tue'` for repeating on Mondays and Tuesdays). Do not use simultaneously with `repeat_freq`. |
+| `repeat_end`| Specify either an integer for number of occurrences, or an end date for repeats in YYYY-MM-DD format. Applies to `repeat_freq` and `repeat_days`.|
 
 ## More resources
 

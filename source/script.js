@@ -20,7 +20,7 @@ if (description == null) {
 }
 
 var nextHalfHour // Declared up here, since might be used by endDate
-if (startDate == null) { // If not defined, then default to the next half-hour
+if (!isValidDate(startDate)) { // If not defined, then default to the next half-hour
   var now = Date.now()
   var date = new Date(now)
   var ms = date.getMilliseconds()
@@ -43,16 +43,22 @@ if (startDate == null) { // If not defined, then default to the next half-hour
   startDate = String(scheduleTime.getFullYear()) + '-' + pad(scheduleTime.getMonth()) + '-' + pad(scheduleTime.getDate()) + ' ' + pad(scheduleTime.getHours()) + ':' + stringMinute
 }
 
-if (endDate == null) {
-  var endFull
-  if (nextHalfHour == null) {
-    endFull = new Date(startDate.substring(0, 4) + '-' + startDate.substring(4, 6) + '-' + startDate.substring(6, 8) + startDate.substring(8, 11) + ':' + startDate.substring(11, 13) + ':00')
+if (!isValidDate(endDate)) {
+  var startVar = new Date(startDate)
+  var endFull = startVar.getTime() // Unix time
+  if (startDate.length === 16) {
+    endFull += 3600000
   } else {
-    var endHalfHour = nextHalfHour + 3600000
-    endFull = new Date(endHalfHour)
+    var tz = startVar.getTimezoneOffset()
+    endFull += 86400000 + (tz * 60000)
   }
 
-  endDate = String(endFull.getFullYear()) + '-' + pad(endFull.getMonth()) + '-' + pad(endFull.getDate()) + ' ' + pad(endFull.getHours()) + ':' + pad(endFull.getMinutes())
+  var newDate = new Date(endFull)
+  endDate = String(newDate.getFullYear()) + '-' + pad(newDate.getMonth() + 1) + '-' + pad(newDate.getDate())
+
+  if (startDate.length === 16) {
+    endDate += ' ' + pad(newDate.getHours()) + ':' + pad(newDate.getMinutes())
+  }
 }
 
 if (guests == null) {
@@ -131,13 +137,17 @@ function displayParameters () {
 }
 
 function validateParameters () {
-  title = title.trim()
-  startDate = startDate.trim()
-  eventRepeatFrequency = eventRepeatFrequency.trim()
-  eventRepeatDays = eventRepeatDays.trim()
-  repeatEnd = repeatEnd.trim()
-
   try {
+    title = title.trim()
+    startDate = startDate.trim()
+    eventRepeatFrequency = eventRepeatFrequency.trim()
+    eventRepeatDays = eventRepeatDays.trim()
+
+    if (typeof repeatEnd !== 'string') {
+      repeatEnd = String(repeatEnd)
+    }
+    repeatEnd = repeatEnd.trim()
+
     if (title === '' && startDate !== '') errorMessages.push('Event Title is required to create an event')
     if (title !== '' & startDate === '') errorMessages.push('Event Start date is required to create an event')
     if (title === '' && startDate === '') errorMessages.push('Required parameters are missing. Both the title and a start date are required to create an event')
@@ -222,33 +232,8 @@ function mapWeekDays (str) {
 function validateStartEndDates () {
   var sd = new Date(startDate)
   var ed = new Date(endDate)
-
-  // Start date & time (date part required): date and time in “YYYY-MM-DD HH:MM” format or date in “YYYY-MM-DD” format if it is an all-day or multi-day event.
-  if (startDate && !isValidDate(startDate)) {
-    errorMessages.push('Provided start date value is invalid')
-  } else if (isValidDate(startDate) && !isValidDate(endDate)) {
-    // if not specified defaults to the same as the start date
-    // if the start date and time only has a date part then the end date and time must not include a time part.
-    if (sd.getUTCHours() === 0 && sd.getUTCMinutes() === 0) {
-      allDayEvent = true
-      ed = sd
-      ed = ed.setTime(ed.getTime() + 86400000) // add 24h
-      endDate = formatDate(ed, 'YYYY-MM-DD')
-    }
-
-    // and time plus one hour if a time part is specified.
-    if (sd.getUTCHours() !== 0 || sd.getUTCMinutes() !== 0) {
-      ed = sd
-      ed = ed.setTime(ed.getTime() + 60 * 60 * 1000)
-      endDate = formatDate(ed, 'YYYY-MM-DD HH:MM')
-    }
-  }
-
-  if (isValidDate(startDate) && isValidDate(endDate)) {
-    // If specified, must be the same as or later than the start date and time, and
-    if (ed < sd) {
-      errorMessages.push('End date must be equal to or greater than the start date')
-    }
+  if (ed < sd) {
+    errorMessages.push('End date must be equal to or greater than the start date')
   }
 }
 
@@ -330,6 +315,9 @@ https:// github.com/InteractionDesignFoundation/add-event-to-calendar-docs/blob/
 } */
 
 function isValidDate (d) {
+  if (typeof d !== 'string') {
+    return false
+  }
   var f1 = /[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]/
   var f2 = /[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])/
 
@@ -359,6 +347,7 @@ function formatDate (date, f = 'YYYYMMDD') {
 
   try {
     var d = new Date(date)
+    d = new Date(d.getTime() + (d.getTimezoneOffset() * 60000)) // Takes into account time zone offset
 
     year = d.getFullYear()
     month = pad(d.getMonth() + 1)
@@ -368,13 +357,9 @@ function formatDate (date, f = 'YYYYMMDD') {
 
     if (f === 'YYYYMMDD') {
       result = [year, month, day].join('')
-    }
-
-    if (f === 'YYYY-MM-DD') {
+    } else if (f === 'YYYY-MM-DD') {
       result = [year, month, day].join('-')
-    }
-
-    if (f === 'YYYY-MM-DD HH:MM') {
+    } else if (f === 'YYYY-MM-DD HH:MM') {
       result = [year, month, day].join('-') + ' ' + [hh, mm].join(':')
     }
   } catch (err) {
