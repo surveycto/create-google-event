@@ -1,6 +1,6 @@
 # Create Google Calendar event
 
-![](extras/create-google-event.png)
+![](extras/readme-images/create-google-event.png)
 
 ## Description
 
