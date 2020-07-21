@@ -13,9 +13,9 @@ When using this field plug-in in web forms, keep in mind that the date selected 
 
 **Note:** Support for iOS is pending in the current field plug-in version.
 
-*This plug-in is currently under beta. If you you find a problem with the field plug-in, please email max@surveycto.com.*
-
 [![Download now](extras/readme-images/beta-release-download.jpg)](https://github.com/SurveyCTO/create-google-event/raw/master/create-google-event.fieldplugin.zip)
+
+*This plug-in is currently in beta. If you you find a problem with the field plug-in, please create an issue in this repo, or email max@surveycto.com.*
 
 ## Default SurveyCTO feature support
 
