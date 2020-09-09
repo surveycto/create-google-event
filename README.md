@@ -43,16 +43,16 @@ The date and time in the square brackets at the start is a timestamp when the ev
 
 | Key | Value |
 | --- | --- |
-| `title`| Event title. |
-| `start_date`| Date and time in YYYY-MM-DD HH:MM format, or date in YYYY-MM-DD format if it is an all-day or multi-day event. Use the [`format-date-time()` SurveyCTO function]([https://docs.surveycto.com/02-designing-forms/01-core-concepts/09.expressions.html#format-date-time](https://docs.surveycto.com/02-designing-forms/01-core-concepts/09.expressions.html#format-date-time)) to format correctly. If not specified, then the time will be the next half-hour (e.g. if the event is created at 4:14 PM, then the default time will be 4:30 PM).|
-| `end_date`| If not specified, defaults to one hour after the `start_date`. If specified, must be the same as or later than the start date and time. If the `start_date` has no time value, then `end_date` must also have no time value. |
-| `description`| The event description. |
-| `location`| Adding a valid address into the location field enables features such as "time to leave" or displaying a map with directions. |
-| `guests`| A commas-separated list of valid email addresses to invite to the event. |
-| `timezone`| Set to current timezone from the device or browser by default. Alternatively, use the TZ database name values from [this article](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) |
-| `repeat_freq`| String value ['daily', 'weekly', 'monthly', or 'yearly']. Will override `repeat_days`. |
-| `repeat_days`| A space-separated list of days the event should repeat on. Can use values 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', or 'Sat' (e.g. `'Mon Tue'` for repeating on Mondays and Tuesdays). Do not use simultaneously with `repeat_freq`. |
-| `repeat_end`| Specify either an integer for number of occurrences, or an end date for repeats in YYYY-MM-DD format. Applies to `repeat_freq` and `repeat_days`.|
+| `title` (required)| Event title. |
+| `start_date` (optional, but recommended)| Date and time in YYYY-MM-DD HH:MM format, or date in YYYY-MM-DD format if it is an all-day or multi-day event. Use the [`format-date-time()` SurveyCTO function]([https://docs.surveycto.com/02-designing-forms/01-core-concepts/09.expressions.html#format-date-time](https://docs.surveycto.com/02-designing-forms/01-core-concepts/09.expressions.html#format-date-time)) to format correctly. If not specified, then the time will be the next half-hour (e.g. if the event is created at 4:14 PM, then the default time will be 4:30 PM).|
+| `end_date` (optional)| If not specified, defaults to one hour after the `start_date`. If specified, must be the same as or later than the start date and time. If the `start_date` has no time value, then `end_date` must also have no time value. |
+| `description` (optional)| The event description. |
+| `location` (optional)| Adding a valid address into the location field enables features such as "time to leave" or displaying a map with directions. |
+| `guests` (optional)| A commas-separated list of valid email addresses to invite to the event. |
+| `timezone` (optional)| Set to current timezone from the device or browser by default. Alternatively, use the TZ database name values from [this article](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) |
+| `repeat_freq` (optional)| String value ['daily', 'weekly', 'monthly', or 'yearly']. Will override `repeat_days`. |
+| `repeat_days` (optional)| A space-separated list of days the event should repeat on. Can use values 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', or 'Sat' (e.g. `'Mon Tue'` for repeating on Mondays and Tuesdays). Do not use simultaneously with `repeat_freq`. |
+| `repeat_end` (optional)| Specify either an integer for number of occurrences, or an end date for repeats in YYYY-MM-DD format. Applies to `repeat_freq` and `repeat_days`.|
 
 ### Default SurveyCTO feature support
 
