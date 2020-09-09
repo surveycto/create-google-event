@@ -2,8 +2,6 @@
 
 ![](extras/readme-images/create-google-event.png)
 
-## Description
-
 This field plug-in creates a Google Calendar events using data entered into SurveyCTO Collect. Use this field plug-in to create calendar events for interview follow-up appointments and other work that needs to be scheduled as part of your data collection.
 
 Only the `title` parameter is required, with the others being optional, but it is recommended that you also supply the `start_date` parameter when generating an event. This also works offline in SurveyCTO Collect on Android.
@@ -17,21 +15,12 @@ When using this field plug-in in web forms, keep in mind that the date selected 
 
 *This plug-in is currently in beta. If you you find a problem with the field plug-in, please create an issue in this repo, or email max@surveycto.com.*
 
-## Default SurveyCTO feature support
+### Feature list
 
-| Feature / Property | Support |
-| --- | --- |
-| Supported field type(s) | `text`|
-| Default values | No |
-| Read only | No |
-| media:image | No |
-| media:audio | No |
-| media:video | No |
-| `numbers` appearance | No |
-| `numbers-decimal` appearance | No |
-| `numbers-phone` appearance | No |
+ * Create an event in Google Calendar by clicking/tapping a button
+ * Customization of the event based on field plug-in parameters
 
-## How the response is stored
+### Data format
 
 Depending on the parameters that were supplied, a response like the following will be stored:
 
@@ -41,6 +30,8 @@ The date and time in the square brackets at the start is a timestamp when the ev
 
 ## How to use
 
+### Getting started
+
 1. Download either the [basic sample form](https://github.com/surveycto/create-google-event/raw/master/extras/sample-form/Sample%20form%20-%20Create%20Google%20Calendar%20event%20field%20plug-in%20(basic).xlsx) or the [advanced sample form](https://github.com/surveycto/create-google-event/raw/master/extras/sample-form/Sample%20form%20-%20Create%20Google%20Calendar%20event%20field%20plug-in%20(advanced).xlsx) from this repo and upload it to your SurveyCTO server.
 2. Download the [create-google-event.fieldplugin.zip](https://github.com/SurveyCTO/create-google-event/raw/just-browser/phone-call-dialer.fieldplugin.zip) file from this repo, and attach it to the sample form on your SurveyCTO server.
 3. Make sure to provide the correct parameters (see below).
@@ -48,7 +39,7 @@ The date and time in the square brackets at the start is a timestamp when the ev
 5. In SurveyCTO Collect, pick the Google Calendar app if prompted to complete the action to create an event offline.
 6. Save the Google Calendar event, then return to Collect.
 
-## Parameters
+### Parameters
 
 | Key | Value |
 | --- | --- |
@@ -62,6 +53,20 @@ The date and time in the square brackets at the start is a timestamp when the ev
 | `repeat_freq`| String value ['daily', 'weekly', 'monthly', or 'yearly']. Will override `repeat_days`. |
 | `repeat_days`| A space-separated list of days the event should repeat on. Can use values 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', or 'Sat' (e.g. `'Mon Tue'` for repeating on Mondays and Tuesdays). Do not use simultaneously with `repeat_freq`. |
 | `repeat_end`| Specify either an integer for number of occurrences, or an end date for repeats in YYYY-MM-DD format. Applies to `repeat_freq` and `repeat_days`.|
+
+### Default SurveyCTO feature support
+
+| Feature / Property | Support |
+| --- | --- |
+| Supported field type(s) | `text`|
+| Default values | No |
+| Read only | No |
+| media:image | No |
+| media:audio | No |
+| media:video | No |
+| `numbers` appearance | No |
+| `numbers-decimal` appearance | No |
+| `numbers-phone` appearance | No |
 
 ## More resources
 
