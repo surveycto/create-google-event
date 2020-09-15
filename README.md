@@ -15,7 +15,7 @@ When using this field plug-in in web forms, keep in mind that the date selected 
 
 [![Download now](extras/readme-images/download-button.png)](https://github.com/SurveyCTO/create-google-event/raw/master/create-google-event.fieldplugin.zip)
 
-### Feature list
+### Features
 
  * Create an event in Google Calendar by clicking/tapping a button
  * Customization of the event based on field plug-in parameters
