@@ -337,7 +337,11 @@ function isValidDate (d) {
   return d instanceof Date && !isNaN(d)
 }
 
-function formatDate (date, f = 'YYYYMMDD') {
+function formatDate (date, f) {
+  if (f == null) {
+    f = 'YYYYMMDD'
+  }
+
   var year = ''
   var month = ''
   var day = ''
@@ -404,3 +408,5 @@ function formatDateISO (date) {
     return result
   }
 }
+
+document.querySelector('#good').innerHTML = 'If you see this, the JS worked well.'
