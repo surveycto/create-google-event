@@ -408,5 +408,3 @@ function formatDateISO (date) {
     return result
   }
 }
-
-document.querySelector('#good').innerHTML = 'If you see this, the JS worked well.'
