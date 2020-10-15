@@ -261,7 +261,7 @@ function validateRepeatFrequency () {
 
   var freq = ['daily', 'weekly', 'monthly', 'yearly']
 
-  if (!freq.includes(eventRepeatFrequency.toLowerCase())) {
+  if (freq.indexOf(eventRepeatFrequency.toLowerCase()) === -1) {
     errorMessages.push('Invalid event repeat frequency value: ' + eventRepeatFrequency)
   }
 }
@@ -273,7 +273,7 @@ function validateEventRepeatDays () {
   var errors = []
 
   for (var i = 0; i < s.length; i++) {
-    if (!days.includes(s[i])) {
+    if (days.indexOf(s[i]) === -1) {
       errors.push(s[i])
     }
   }
@@ -337,7 +337,11 @@ function isValidDate (d) {
   return d instanceof Date && !isNaN(d)
 }
 
-function formatDate (date, f = 'YYYYMMDD') {
+function formatDate (date, f) {
+  if (f == null) {
+    f = 'YYYYMMDD'
+  }
+
   var year = ''
   var month = ''
   var day = ''
