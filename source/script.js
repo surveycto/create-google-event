@@ -393,7 +393,7 @@ function formatDateISO (date) {
 
     if (d.getUTCHours() > 0 || d.getUTCMinutes() > 0) {
       result =
-        d.getUTCFullYear() +
+        String(d.getUTCFullYear()) +
         pad(d.getUTCMonth() + 1) +
         pad(d.getUTCDate()) +
         'T' +
